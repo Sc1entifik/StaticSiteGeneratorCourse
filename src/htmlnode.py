@@ -11,7 +11,7 @@ class HTMLNode():
         raise NotImplementedError()
 
     def props_to_html(self):
-        kv_pairs = None if not self.props else self.props.values()
+        kv_pairs = None if not self.props else self.props.items()
 
         return "" if not kv_pairs else " ".join((f'{key}="{value}"' for key, value in kv_pairs))
 
