@@ -1,8 +1,8 @@
 import unittest
-from split_nodes_delimiter import split_nodes_delimiter
+from split_nodes import split_nodes_delimiter
 from textnode import TextNode, TextType
 
-class TestSplitNodesDelimiter(unittest.TestCase):
+class TestSplitNodes(unittest.TestCase):
     def test_bold_delimiter(self):
         text = "This **is bold** text __not this italic__ text or `this = 'code'` text."
         delimiter = "**"
