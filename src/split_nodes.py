@@ -32,8 +32,11 @@ def _extraction_function(extraction_function):
             for extraction in extraction_function(node.text):
                 delimiter = f"![{extraction[0]}]({extraction[1]})" if text_type == TextType.IMAGE else f"[{extraction[0]}]({extraction[1]})"
                 before, remaining_text= remaining_text.split(delimiter, 1)
-                split_nodes = [TextNode(before, TextType.TEXT), TextNode(extraction[0], text_type, extraction[1])]
+                split_nodes = [TextNode(extraction[0], text_type, extraction[1])] if not before else[TextNode(before, TextType.TEXT), TextNode(extraction[0], text_type, extraction[1])]
                 new_nodes.extend(split_nodes)
+
+            if len(new_nodes) == 1:
+                new_nodes.append(TextNode(remaining_text, TextType.TEXT))
 
         return old_nodes if not new_nodes else new_nodes
     return decorator
