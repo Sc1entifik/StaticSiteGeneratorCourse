@@ -27,15 +27,13 @@ def _extraction_function(extraction_function):
             if node.text_type != TextType.TEXT:
                 new_nodes.append(node)
                 continue
-            delimiters = extraction_function(node.text)
 
-            for delimiter in delimiters:
-                split_text = node.text.split(delimiter)
-
-                if len(split_text) %2 == 0:
-                    raise Exception("Odd number of delimiters present!!")
-
-                split_nodes = [TextNode(text, TextType.TEXT) if index % 2 ==0 else TextNode(text, text_type) for index, text in enumerate(split_text)]
+            remaining_text = node.text
+            for extraction in extraction_function(node.text):
+                delimiter = f"![{extraction[0]}]({extraction[1]})" if text_type == TextType.IMAGE else f"[{extraction[0]}]({extraction[1]})"
+                before, remaining_text= remaining_text.split(delimiter, 1)
+                print(f"Before: {before}\nDelimiter: {delimiter}")
+                split_nodes = [TextNode(before, TextType.TEXT), TextNode(extraction[0], text_type, extraction[1])]
                 new_nodes.extend(split_nodes)
 
         return new_nodes
