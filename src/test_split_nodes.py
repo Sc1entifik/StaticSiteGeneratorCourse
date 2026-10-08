@@ -81,3 +81,8 @@ class TestSplitNodes(unittest.TestCase):
         node = TextNode("![image](not_real_image.png) The rest of this is just text!", TextType.TEXT)
 
         self.assertEqual([TextNode("image", TextType.IMAGE, "not_real_image.png"), TextNode(" The rest of this is just text!", TextType.TEXT)], split_nodes_image([node]))
+
+    def test_split_links_handles_first_match(self):
+        node = TextNode("[webpage](not_real_image.com) The rest of this is just text!", TextType.TEXT)
+
+        self.assertEqual([TextNode("webpage", TextType.LINK, "not_real_image.com"), TextNode(" The rest of this is just text!", TextType.TEXT)], split_nodes_link([node]))
