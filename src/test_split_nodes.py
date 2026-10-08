@@ -50,3 +50,19 @@ class TestSplitNodes(unittest.TestCase):
             ],
             new_nodes,
         )
+
+    def test_split_links(self):
+        node = TextNode(
+            "This is text with a [webpage](https://i.imgur.com/zjjcJKZ.com) and another [second webpage](https://i.imgur.com/3elNhQu.com)",
+            TextType.TEXT,
+        )
+        new_nodes = split_nodes_link([node])
+        self.assertListEqual(
+            [
+                TextNode("This is text with a ", TextType.TEXT),
+                TextNode("webpage", TextType.LINK, "https://i.imgur.com/zjjcJKZ.com"),
+                TextNode(" and another ", TextType.TEXT),
+                TextNode("second webpage", TextType.LINK, "https://i.imgur.com/3elNhQu.com"),
+            ],
+            new_nodes,
+        )
