@@ -66,3 +66,15 @@ class TestSplitNodes(unittest.TestCase):
             ],
             new_nodes,
         )
+
+    def test_split_images_no_images(self):
+        node = TextNode("This is a text **WITH NO** images present", TextType.TEXT)
+
+        self.assertEqual([node], split_nodes_image([node]))
+
+    def test_split_links_no_links(self):
+        node = TextNode("This is a text **WITH NO** links present", TextType.TEXT)
+
+        self.assertEqual([node], split_nodes_link([node]))
+
+
