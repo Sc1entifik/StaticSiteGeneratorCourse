@@ -86,3 +86,8 @@ class TestSplitNodes(unittest.TestCase):
         node = TextNode("[webpage](not_real_image.com) The rest of this is just text!", TextType.TEXT)
 
         self.assertEqual([TextNode("webpage", TextType.LINK, "not_real_image.com"), TextNode(" The rest of this is just text!", TextType.TEXT)], split_nodes_link([node]))
+
+    def test_split_images_and_links_pass_through_non_text_text_node(self):
+        node = TextNode("**I am a bold text**", TextType.BOLD)
+        self.assertEqual([node], split_nodes_image([node]))
+        self.assertEqual([node], split_nodes_link([node]))
