@@ -98,3 +98,11 @@ This is a paragraph of text. It has some **bold** and _italic_ words inside of i
         ```"""
 
         self.assertEqual(block_to_block_type(input), BlockType.CODE)
+
+    def test_invalid_code_block_to_block_type(self):
+        input = """```var = 1
+        var2 = 2
+        return var + var2
+        ```"""
+
+        self.assertEqual(block_to_block_type(input), BlockType.PARAGRAPH)
