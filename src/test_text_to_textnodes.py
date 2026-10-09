@@ -30,8 +30,16 @@ class TestTextToTextNodes(unittest.TestCase):
             TextNode(" texts.", TextType.TEXT)
         ]
 
-        for node in text_to_textnodes(text):
-            print(node)
         self.assertEqual(text_to_textnodes(text), expected_output)
 
+    def test_plain_text(self):
+        text = "Here is some plain old text."
+        expected_output = [TextNode("Here is some plain old text.", TextType.TEXT)]
 
+        self.assertEqual(text_to_textnodes(text), expected_output)
+
+    def test_only_syntax(self):
+        text = "`test = 'This should pass'`"
+        expected_output = [TextNode("test = 'This should pass'", TextType.CODE)]
+
+        self.assertEqual(text_to_textnodes(text), expected_output)
