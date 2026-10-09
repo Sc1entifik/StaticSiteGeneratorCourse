@@ -113,3 +113,7 @@ This is a paragraph of text. It has some **bold** and _italic_ words inside of i
     def test_quote_block_to_block_type(self):
         quote = '>"And another thing"-some angry guy'
         self.assertEqual(block_to_block_type(quote), BlockType.QUOTE)
+
+    def test_unordered_list_block_to_block_type(self):
+        lst = "- Item1\n- Item2\n- Item3"
+        self.assertEqual(block_to_block_type(lst), BlockType.UNORDERED_LIST)
