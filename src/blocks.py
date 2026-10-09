@@ -16,11 +16,11 @@ def block_to_block_type(block):
         return BlockType.HEADING
     elif block.startswith(("```\n")) and block.endswith(("```")):
         return BlockType.CODE
-    elif all(line.startswith(">") for line in block.strip("\n")):
+    elif all(line.startswith(">") for line in block.split("\n")):
         return BlockType.QUOTE
-    elif all(line.startswith(f"- ") for line in block.strip("\n")):
+    elif all(line.startswith(f"- ") for line in block.split("\n")):
         return BlockType.UNORDERED_LIST
-    elif all(line.startswith(f"{i}. ") for i, line in enumerate(block.strip("\n"), start=1)): 
+    elif all(line.startswith(f"{i}. ") for i, line in enumerate(block.split("\n"), start=1)): 
         return BlockType.ORDERED_LIST
     else:
         return BlockType.PARAGRAPH
