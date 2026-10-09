@@ -43,3 +43,9 @@ class TestTextToTextNodes(unittest.TestCase):
         expected_output = [TextNode("test = 'This should pass'", TextType.CODE)]
 
         self.assertEqual(text_to_textnodes(text), expected_output)
+
+    def test_empty_string(self):
+        text = ""
+        expected_output = []
+
+        self.assertEqual(text_to_textnodes(text), expected_output)
