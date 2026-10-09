@@ -14,7 +14,7 @@ def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: 
         if len(split_text) %2 == 0:
             raise Exception("Odd number of delimiters present!!")
 
-        split_nodes = [TextNode(text, TextType.TEXT) if index % 2 == 0 else TextNode(text, text_type) for index, text in enumerate(split_text)]
+        split_nodes = [TextNode(text, TextType.TEXT) if index % 2 == 0 else TextNode(text, text_type) for index, text in enumerate(split_text) if text]
         new_nodes.extend(split_nodes)
 
     return new_nodes
