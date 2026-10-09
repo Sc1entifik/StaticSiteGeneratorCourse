@@ -117,3 +117,15 @@ This is a paragraph of text. It has some **bold** and _italic_ words inside of i
     def test_unordered_list_block_to_block_type(self):
         lst = "- Item1\n- Item2\n- Item3"
         self.assertEqual(block_to_block_type(lst), BlockType.UNORDERED_LIST)
+        
+    def test_invalid_unordered_list_block_to_block_type(self):
+        lst = "- Item1\n- Item2\n-Item3"
+        self.assertEqual(block_to_block_type(lst), BlockType.PARAGRAPH)
+
+    def test_ordered_list_block_to_block_type(self):
+        lst = "1. Item1\n2. Item2\n3. Item3"
+        self.assertEqual(block_to_block_type(lst), BlockType.ORDERED_LIST)
+
+    def test_invalid_ordered_list_block_to_block_type(self):
+        lst = "1. Item1\n2. Item2\n3.Item3"
+        self.assertEqual(block_to_block_type(lst), BlockType.PARAGRAPH)
