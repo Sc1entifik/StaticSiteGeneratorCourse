@@ -1,5 +1,5 @@
 import unittest
-from blocks import markdown_to_blocks
+from blocks import markdown_to_blocks, BlockType, block_to_block_type
 
 class TestBlocks(unittest.TestCase):
     def test_common_use_markdown_to_blocks(self):
@@ -17,7 +17,6 @@ This is a paragraph of text. It has some **bold** and _italic_ words inside of i
             "This is a paragraph of text. It has some **bold** and _italic_ words inside of it.",
             "- This is the first list item in a list block\n- This is a list item\n- This is another list item"
         ]
-        print(f"Expected_Output: \n{expected_output}\n\nActual_Output:\n{markdown_to_blocks(markdown_string)}\n")
         self.assertEqual(markdown_to_blocks(markdown_string), expected_output)
 
     def test_extra_lines_between_markdown_to_blocks(self):
@@ -79,3 +78,14 @@ This is a paragraph of text. It has some **bold** and _italic_ words inside of i
         ]
 
         self.assertEqual(markdown_to_blocks(markdown_string), expected_output)
+
+    def test_heading_block_to_block_type(self):
+        input = "# I am a heading!"
+        input2 = "## I am a heading!"
+        input3 = "### I am a heading!"
+        input4 = "#### I am a heading!"
+        input5 = "##### I am a heading!"
+        input6 = "###### I am a heading!"
+        
+        for heading in (input, input2, input3, input4, input5, input6):
+            self.assertEqual(block_to_block_type(heading), BlockType.HEADING)
