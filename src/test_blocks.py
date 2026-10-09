@@ -89,3 +89,12 @@ This is a paragraph of text. It has some **bold** and _italic_ words inside of i
         
         for heading in (input, input2, input3, input4, input5, input6):
             self.assertEqual(block_to_block_type(heading), BlockType.HEADING)
+
+    def test_code_block_to_block_type(self):
+        input = """```\n
+        var = 1
+        var2 = 2
+        return var + var2
+        ```"""
+
+        self.assertEqual(block_to_block_type(input), BlockType.CODE)
