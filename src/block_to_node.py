@@ -1,6 +1,6 @@
 from htmlnode import ParentNode
 from text_to_textnodes import text_to_textnodes
-from textnode import TextNode, text_node_to_html_node
+from textnode import TextType, TextNode, text_node_to_html_node
 from blocks import BlockType, header_tag
 
 def text_to_children(text):
@@ -25,8 +25,8 @@ def paragraph_block_to_node(block):
     return ParentNode(tag=BlockType.PARAGRAPH.value, children=children)
 
 def code_block_to_node(block):
-    code_block = block.strip("```")
-    node = text_node_to_html_node(TextNode(text=code_block, text_type=BlockType.CODE.value))
+    code_block = block.strip("```").lstrip()
+    node = text_node_to_html_node(TextNode(text=code_block, text_type=TextType.CODE))
     return ParentNode(tag="pre", children=[node])
 
 def blocktype_to_node(blocktype):
