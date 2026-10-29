@@ -24,3 +24,7 @@ def block_to_block_type(block):
         return BlockType.ORDERED_LIST
     else:
         return BlockType.PARAGRAPH
+
+def header_tag(header: str) -> str:
+    level = len(header) - len(header.lstrip("#"))
+    return f"h{level}"
