@@ -29,5 +29,6 @@ def code_block_to_node(block):
     node = text_node_to_html_node(TextNode(text=code_block, text_type=BlockType.CODE.value))
     return ParentNode("pre", node)
 
-def blocktype_to_node():
-    return {BlockType.HEADING: heading_block_to_node, BlockType.QUOTE: quote_block_to_node, BlockType.PARAGRAPH: paragraph_block_to_node, BlockType.CODE: code_block_to_node}
+def blocktype_to_node(blocktype):
+    blocknode_dictionary = {BlockType.HEADING.value: heading_block_to_node, BlockType.QUOTE.value: quote_block_to_node, BlockType.PARAGRAPH.value: paragraph_block_to_node, BlockType.CODE.value: code_block_to_node}
+    return blocknode_dictionary.get(blocktype)
