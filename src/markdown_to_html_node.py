@@ -8,6 +8,6 @@ def markdown_to_html_node(markdown: str) -> ParentNode:
         (block, header_tag(block) if (block_type := block_to_block_type(block)) == BlockType.HEADING.value else block_type.value)
         for block in blocks
     )
-    html_nodes = [blocktype_to_node(block_type)(block) for block, block_type in blocks_and_block_types]
+    html_nodes = [html_node for block, block_type in blocks_and_block_types if (html_node := blocktype_to_node(block_type)(block)).children]
 
     return ParentNode(tag="div", children=html_nodes)
