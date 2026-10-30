@@ -17,6 +17,7 @@ def sync_static_to_public(source, destination):
             destination_path = os.path.join(current_destination, item)
 
             if os.path.isfile(source_path):
+                print(f"Copying {source_path} to {destination_path}\n")
                 shutil.copy(source_path, destination_path)
 
             else:
