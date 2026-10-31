@@ -29,6 +29,19 @@ def code_block_to_node(block):
     node = text_node_to_html_node(TextNode(text=code_block, text_type=TextType.CODE))
     return ParentNode(tag="pre", children=[node])
 
+def unordered_list_to_node(block):
+    lines = block.split("\n")
+    stripped_lines = (line.removeprefix("- ").strip() for line in lines)
+    children = [ParentNode(tag="li", children=text_to_children(stripped_line)) for stripped_line in stripped_lines]
+    return ParentNode(tag=BlockType.UNORDERED_LIST.value, children=children)
+
+def ordered_list_to_node(block):
+    lines = block.split("\n")
+    stripped_lines = (line.removeprefix(f"{index + 1}. ").strip() for index, line in enumerate(lines))
+    children = [ParentNode(tag="li", children=text_to_children(stripped_line)) for stripped_line in stripped_lines]
+    return ParentNode(tag=BlockType.ORDERED_LIST.value, children=children)
+
+
 def blocktype_to_node(blocktype):
-    blocknode_dictionary = {BlockType.HEADING.value: heading_block_to_node, BlockType.QUOTE.value: quote_block_to_node, BlockType.PARAGRAPH.value: paragraph_block_to_node, BlockType.CODE.value: code_block_to_node}
+    blocknode_dictionary = {BlockType.HEADING.value: heading_block_to_node, BlockType.QUOTE.value: quote_block_to_node, BlockType.PARAGRAPH.value: paragraph_block_to_node, BlockType.CODE.value: code_block_to_node, BlockType.UNORDERED_LIST.value: unordered_list_to_node, BlockType.ORDERED_LIST.value: ordered_list_to_node}
     return blocknode_dictionary.get(blocktype)
