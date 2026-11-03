@@ -23,3 +23,14 @@ def generate_page(from_path: str, template_path: str, dest_path: str ):
     with open(dest_path, "w") as index_file:
         index_file.write(template_string)
 
+def generate_pages_recursive(dir_path_content: str, template_path: str, dest_dir_path: str):
+    for item in os.listdir(dir_path_content):
+        current_from_path = os.path.join(dir_path_content, item)
+        current_dest_path = os.path.join(dest_dir_path, item)
+        if os.path.isfile(item):
+            generate_page(current_from_path, template_path, current_dest_path)
+
+        else:
+            generate_pages_recursive(current_from_path, template_path, current_dest_path)
+
+
