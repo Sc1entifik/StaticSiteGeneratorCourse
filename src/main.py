@@ -6,7 +6,6 @@ def main():
     source_path = "static"
     destination_path = "docs"
     basepath = "/" if len(sys.argv) == 1 else sys.argv[1]
-    print(f"BASEPATH: {basepath}")
     sync_static_to_public(source_path, destination_path)
     generate_pages_recursive(dir_path_content="content", template_path="template.html", dest_dir_path=destination_path, basepath=basepath)
 
