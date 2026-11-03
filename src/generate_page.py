@@ -24,13 +24,15 @@ def generate_page(from_path: str, template_path: str, dest_path: str ):
         index_file.write(template_string)
 
 def generate_pages_recursive(dir_path_content: str, template_path: str, dest_dir_path: str):
-    for item in os.listdir(dir_path_content):
-        current_from_path = os.path.join(dir_path_content, item)
-        current_dest_path = os.path.join(dest_dir_path, item)
-        if os.path.isfile(item):
-            generate_page(current_from_path, template_path, current_dest_path)
+    if os.path.isfile(dir_path_content):
+        dest_path = os.path.splitext(dest_dir_path)[0] + ".html"
+        generate_page(dir_path_content, template_path, dest_path)
 
-        else:
+    else:
+        for item in os.listdir(dir_path_content):
+            current_from_path = os.path.join(dir_path_content, item)
+            current_dest_path = os.path.join(dest_dir_path, item)
             generate_pages_recursive(current_from_path, template_path, current_dest_path)
+            
 
 
