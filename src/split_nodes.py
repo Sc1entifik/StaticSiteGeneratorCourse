@@ -14,7 +14,7 @@ def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: 
         if len(split_text) %2 == 0:
             raise Exception("Odd number of delimiters present!!")
 
-        split_nodes = [TextNode(text, TextType.TEXT) if index % 2 ==0 else TextNode(text, text_type) for index, text in enumerate(split_text)]
+        split_nodes = [TextNode(text, TextType.TEXT) if index % 2 == 0 else TextNode(text, text_type) for index, text in enumerate(split_text) if text]
         new_nodes.extend(split_nodes)
 
     return new_nodes
@@ -35,7 +35,7 @@ def _extraction_function(extraction_function):
                 split_nodes = [TextNode(extraction[0], text_type, extraction[1])] if not before else[TextNode(before, TextType.TEXT), TextNode(extraction[0], text_type, extraction[1])]
                 new_nodes.extend(split_nodes)
 
-            if len(new_nodes) == 1:
+            if remaining_text:
                 new_nodes.append(TextNode(remaining_text, TextType.TEXT))
 
         return old_nodes if not new_nodes else new_nodes
